@@ -27,7 +27,7 @@ public class MessageDAO {
                 messages.add(message);
             }
         } catch(SQLException e) {
-            System.out.println(e.getMessage())
+            System.out.println(e.getMessage());
         }
 
         return messages;

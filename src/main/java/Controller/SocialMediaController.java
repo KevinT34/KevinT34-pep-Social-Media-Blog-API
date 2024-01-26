@@ -31,6 +31,7 @@ public class SocialMediaController {
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler);
+        app.get("/messages", this::getAllMessagesHandler);
 
         return app;
     }
@@ -49,6 +50,7 @@ public class SocialMediaController {
     private void getAllMessagesHandler(Context ctx) {
         List<Message> messages = msgService.getAllMessages();
         ctx.json(messages);
+        //ctx.status(200);
     }
 
 }
