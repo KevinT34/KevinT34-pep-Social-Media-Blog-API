@@ -15,6 +15,9 @@ public class AccountService {
     }
 
     public Account addAccount(Account account) {
+        if (account.getUsername() == "" || account.getPassword().length() < 4) {
+            return null;
+        }
         return accountDAO.insertAccount(account);
     }
 }
