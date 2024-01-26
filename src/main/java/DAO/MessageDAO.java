@@ -42,7 +42,7 @@ public class MessageDAO {
     public Message getMessageById(int msgId) {
         Connection conn = ConnectionUtil.getConnection();
         try {
-            String sql = "SELECT message_text WHERE message_id = ?";
+            String sql = "SELECT * WHERE message_id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             
             preparedStatement.setInt(1, msgId);

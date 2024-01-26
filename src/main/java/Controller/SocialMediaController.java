@@ -91,14 +91,18 @@ public class SocialMediaController {
     /*
      * NOT FUNCTIONING
      */
-    private void getMessageByIdHandler(Context ctx) {
-        //ObjectMapper mapper = new ObjectMapper();
-        //int messageId = mapper.readValue(ctx.body(), int.class);
+    private void getMessageByIdHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
 
         int messageId = Integer.parseInt(ctx.pathParam("message_id"));
 
         Message message = msgService.getMessageById(messageId);
-        ctx.json(message);
+        if (message != null) {
+            ctx.json(mapper.writeValueAsString(message.getMessage_text()));
+        } else {
+            ctx.status(200);
+        }
+        
     }
 
 }
