@@ -20,4 +20,13 @@ public class AccountService {
         }
         return accountDAO.insertAccount(account);
     }
+
+    public Account validateAccount(Account account) {
+        Account accountCheck = accountDAO.getAccountByUserPass(account.getUsername(), account.getPassword());
+        if (accountCheck == null) {
+            return null;
+        } else {
+            return accountCheck;
+        }
+    }
 }

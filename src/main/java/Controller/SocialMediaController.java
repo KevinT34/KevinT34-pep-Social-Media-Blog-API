@@ -35,6 +35,7 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postNewAccountHandler);
+        app.post("/login", this::postLoginHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByIdHandler);
 
@@ -63,6 +64,21 @@ public class SocialMediaController {
         }
     }
 
+    /*
+     * 
+     */
+    private void postLoginHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Account account = mapper.readValue(ctx.body(), Account.class);
+
+        Account returnedAccount  = accService.validateAccount(account);
+        if (returnedAccount != null) {
+            ctx.json(mapper.writeValueAsString(returnedAccount));
+        } else {
+            ctx.status(401);
+        }
+    }
+
 
     /*
      * 
@@ -73,7 +89,7 @@ public class SocialMediaController {
     }
 
     /*
-     * 
+     * NOT FUNCTIONING
      */
     private void getMessageByIdHandler(Context ctx) {
         //ObjectMapper mapper = new ObjectMapper();
