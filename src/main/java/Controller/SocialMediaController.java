@@ -8,6 +8,9 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
  * found in readme.md as well as the test cases. You should
@@ -31,7 +34,9 @@ public class SocialMediaController {
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler);
+        app.post("/register", this::postNewAccountHandler);
         app.get("/messages", this::getAllMessagesHandler);
+        app.get("/messages/{message_id}", this::getMessageByIdHandler);
 
         return app;
     }
@@ -47,10 +52,37 @@ public class SocialMediaController {
     /*
      * 
      */
+    private void postNewAccountHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Account account = mapper.readValue(ctx.body(), Account.class);
+        Account addedAccount = accService.addAccount(account);
+        if (addedAccount != null) {
+            ctx.json(mapper.writeValueAsString(addedAccount));
+        } else {
+            ctx.status(400);
+        }
+    }
+
+
+    /*
+     * 
+     */
     private void getAllMessagesHandler(Context ctx) {
         List<Message> messages = msgService.getAllMessages();
         ctx.json(messages);
-        //ctx.status(200);
+    }
+
+    /*
+     * 
+     */
+    private void getMessageByIdHandler(Context ctx) {
+        //ObjectMapper mapper = new ObjectMapper();
+        //int messageId = mapper.readValue(ctx.body(), int.class);
+
+        int messageId = Integer.parseInt(ctx.pathParam("message_id"));
+
+        Message message = msgService.getMessageById(messageId);
+        ctx.json(message);
     }
 
 }
