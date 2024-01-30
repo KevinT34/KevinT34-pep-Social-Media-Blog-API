@@ -28,14 +28,14 @@ public class MessageService {
     public Message postMessage(Message newMsg) {
         
         if (newMsg.getMessage_text().isBlank()
-            || newMsg.getMessage_text().length() >= 255
+            || newMsg.getMessage_text().length() > 255
             || accountService.findAccountById(newMsg.getPosted_by()) == null) { 
             return null;
         } else {
             return messageDAO.postMessage(newMsg);
         }
 
-        // if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() >= 255) {
+        // if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() > 255) {
         //     return null;
         // }
         //return messageDAO.postMessage(newMsg);
@@ -65,5 +65,18 @@ public class MessageService {
      */
     public Message deleteMessage(Message messageToDelete) {
         return messageDAO.deleteMessage(messageToDelete);
+    }
+
+    /*
+     * 
+     */
+    public Message updateMessage(int messageId, Message newMessage) {
+        Message messageToUpdate = getMessageById(messageId);
+        if (messageToUpdate == null || newMessage.getMessage_text().isBlank() || newMessage.getMessage_text().length() > 255) {
+            return null;
+        } else {
+            return messageDAO.updateMessage(newMessage);
+        }
+        return null;
     }
 }
