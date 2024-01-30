@@ -9,6 +9,7 @@ import Model.Message;
 public class MessageService {
     
     private MessageDAO messageDAO;
+    private AccountService accountService;
 
     /*
      * 
@@ -24,6 +25,24 @@ public class MessageService {
         this.messageDAO = msgDAO;
     }
 
+    public Message postMessage(Message newMsg) {
+        
+        if (newMsg.getMessage_text().isBlank()
+            || newMsg.getMessage_text().length() >= 255
+            || accountService.findAccountById(newMsg.getPosted_by()) == null) { 
+            return null;
+        } else {
+            return messageDAO.postMessage(newMsg);
+        }
+
+        // if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() >= 255) {
+        //     return null;
+        // }
+        //return messageDAO.postMessage(newMsg);
+
+
+    }
+
     /*
      * get all messages
      */
@@ -36,5 +55,12 @@ public class MessageService {
      */
     public Message getMessageById(int messageId) {
         return messageDAO.getMessageById(messageId);
+    }
+
+    /*
+     * 
+     */
+    public Message deleteMessage(Message messageToDelete) {
+        return messageDAO.deleteMessage(messageToDelete);
     }
 }

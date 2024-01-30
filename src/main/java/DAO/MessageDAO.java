@@ -36,8 +36,37 @@ public class MessageDAO {
         return messages;
     }
 
+
     /*
      * 
+     */
+    public Message postMessage(Message msg) {
+        Connection conn = ConnectionUtil.getConnection();
+
+        try {
+            String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, msg.getPosted_by());
+            preparedStatement.setString(2, msg.getMessage_text());
+            preparedStatement.setLong(3, msg.getTime_posted_epoch());
+
+            preparedStatement.executeUpdate();
+            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
+            if (pkeyResultSet.next()) {
+                int generatedMsgId = (int) pkeyResultSet.getLong(1);
+                return new Message(generatedMsgId, msg.getPosted_by(), msg.getMessage_text(), msg.getTime_posted_epoch());
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+    /*
+     * needs work
      */
     public Message getMessageById(int msgId) {
         Connection conn = ConnectionUtil.getConnection();
@@ -53,6 +82,27 @@ public class MessageDAO {
                 return message;
             }
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+    /*
+     * 
+     */
+    public Message deleteMessage(Message msg) {
+        Connection conn = ConnectionUtil.getConnection();
+        try {
+            String sql = "DELETE FROM message WHERE message_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, msg.getMessage_id());
+
+            int rows = preparedStatement.executeUpdate();
+            System.out.println("Rows affected: " + rows);
+            return msg;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

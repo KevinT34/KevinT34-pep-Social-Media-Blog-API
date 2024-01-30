@@ -29,4 +29,11 @@ public class AccountService {
             return accountCheck;
         }
     }
+
+    /*
+     * may need editing
+     */
+    public Account findAccountById(int id) {
+        return accountDAO.getAccountById(id);
+    }
 }
