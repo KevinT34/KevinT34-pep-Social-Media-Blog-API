@@ -77,6 +77,5 @@ public class MessageService {
         } else {
             return messageDAO.updateMessage(newMessage);
         }
-        return null;
     }
 }

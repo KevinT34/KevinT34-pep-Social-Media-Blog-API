@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.h2.command.Prepared;
+//import org.h2.command.Prepared;
 
 import java.util.ArrayList;
 import Model.Message;
