@@ -44,7 +44,7 @@ public class MessageService {
     }
 
     /*
-     * get all messages
+     * 
      */
     public List<Message> getAllMessages() {
         return messageDAO.getAllMessages();
@@ -54,6 +54,9 @@ public class MessageService {
      * 
      */
     public Message getMessageById(int messageId) {
+        // if (messageDAO.getMessageById(messageId) == null) {
+        //     return null;
+        // }
         return messageDAO.getMessageById(messageId);
     }
 

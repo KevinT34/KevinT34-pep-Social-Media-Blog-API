@@ -130,7 +130,7 @@ public class SocialMediaController {
 
 
     /*
-     * 
+     * NOT FUNCTIONING
      */
     private void deleteMessageByIdHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
