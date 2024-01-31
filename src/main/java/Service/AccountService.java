@@ -34,6 +34,11 @@ public class AccountService {
      * may need editing
      */
     public Account findAccountById(int id) {
-        return accountDAO.getAccountById(id);
+        Account account = accountDAO.getAccountById(id);
+        if (account == null) {
+            return null;
+        } else {
+            return account;
+        }
     }
 }

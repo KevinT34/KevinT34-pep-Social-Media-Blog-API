@@ -27,7 +27,9 @@ public class MessageService {
 
     public Message postMessage(Message newMsg) {
         
-        //(accountService.findAccountById(newMsg.getPosted_by())) == null
+        // if (accountService.findAccountById(newMsg.getPosted_by()) == null) {
+        //     return null;
+        // }
         if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() > 255) {
                 return null;
         }
