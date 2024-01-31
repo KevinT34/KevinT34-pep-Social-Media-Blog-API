@@ -84,4 +84,23 @@ public class AccountDAO {
 
         return null;
     }
+
+
+    /*
+     * 
+     */
+    public boolean accountExistsById(int userId) {
+        Connection conn = ConnectionUtil.getConnection();
+        try {
+            String sql = "SELECT COUNT(*) FROM account WHERE account_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, userId);
+
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }

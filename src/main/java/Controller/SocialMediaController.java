@@ -89,7 +89,7 @@ public class SocialMediaController {
 
 
     /*
-     * NOT FUNCTIONING
+     * Needs work
      */
     private void postNewMessageHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();

@@ -2,6 +2,7 @@ package Service;
 
 import java.util.List;
 
+import DAO.AccountDAO;
 import DAO.MessageDAO;
 import Model.Message;
 
@@ -9,7 +10,7 @@ import Model.Message;
 public class MessageService {
     
     private MessageDAO messageDAO;
-    private AccountService accountService;
+    private AccountDAO accountDAO;
 
     /*
      * 
@@ -27,9 +28,10 @@ public class MessageService {
 
     public Message postMessage(Message newMsg) {
         
-        // if (accountService.findAccountById(newMsg.getPosted_by()) == null) {
+        // if (!accountDAO.accountExistsById(newMsg.getPosted_by())) {
         //     return null;
         // }
+
         if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() > 255) {
                 return null;
         }
