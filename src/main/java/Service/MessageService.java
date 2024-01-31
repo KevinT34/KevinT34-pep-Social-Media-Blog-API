@@ -27,11 +27,14 @@ public class MessageService {
 
     public Message postMessage(Message newMsg) {
         
-        if (newMsg.getMessage_text().isBlank()
-            || newMsg.getMessage_text().length() > 255
-            || (accountService.findAccountById(newMsg.getPosted_by())) == null) { 
-            return null;
-        } 
+        // if (newMsg.getMessage_text().isBlank()
+        //     || newMsg.getMessage_text().length() > 255
+        //     || (accountService.findAccountById(newMsg.getPosted_by())) == null) { 
+        //     return null;
+        // } 
+        if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() > 255) {
+                return null;
+        }
         return messageDAO.postMessage(newMsg);
 
     }
