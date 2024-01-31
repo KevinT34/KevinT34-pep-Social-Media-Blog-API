@@ -74,8 +74,9 @@ public class MessageService {
         Message messageToUpdate = getMessageById(messageId);
         if (messageToUpdate == null || newMessage.getMessage_text().isBlank() || newMessage.getMessage_text().length() > 255) {
             return null;
-        } else {
-            return messageDAO.updateMessage(newMessage);
-        }
+        } 
+        messageDAO.updateMessage(messageId, newMessage);
+        return messageDAO.getMessageById(messageId);
+        
     }
 }

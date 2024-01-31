@@ -111,28 +111,21 @@ public class MessageDAO {
 
 
     /*
-     * 
+     * in progress
      */
-    public Message updateMessage(Message msg) {
+    public void updateMessage(int id, Message msg) {
         Connection conn = ConnectionUtil.getConnection();
         try {
             String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.setString(1, msg.getMessage_text());
-            preparedStatement.setInt(2, msg.getMessage_id());
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
 
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                Message updatedMessage = new Message(rs.getInt("message_id"),
-                                            rs.getInt("posted_by"),
-                                            rs.getString("message_text"),
-                                            rs.getLong("time_posted_epoch"));
-                return updatedMessage;
-            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        //return null;
     }
 }
