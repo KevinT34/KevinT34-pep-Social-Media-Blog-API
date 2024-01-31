@@ -27,11 +27,7 @@ public class MessageService {
 
     public Message postMessage(Message newMsg) {
         
-        // if (newMsg.getMessage_text().isBlank()
-        //     || newMsg.getMessage_text().length() > 255
-        //     || (accountService.findAccountById(newMsg.getPosted_by())) == null) { 
-        //     return null;
-        // } 
+        //(accountService.findAccountById(newMsg.getPosted_by())) == null
         if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() > 255) {
                 return null;
         }
