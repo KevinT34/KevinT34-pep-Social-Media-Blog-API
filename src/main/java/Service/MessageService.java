@@ -29,17 +29,10 @@ public class MessageService {
         
         if (newMsg.getMessage_text().isBlank()
             || newMsg.getMessage_text().length() > 255
-            || accountService.findAccountById(newMsg.getPosted_by()) == null) { 
+            || (accountService.findAccountById(newMsg.getPosted_by())) == null) { 
             return null;
-        } else {
-            return messageDAO.postMessage(newMsg);
-        }
-
-        // if (newMsg.getMessage_text().isBlank() || newMsg.getMessage_text().length() > 255) {
-        //     return null;
-        // }
-        //return messageDAO.postMessage(newMsg);
-
+        } 
+        return messageDAO.postMessage(newMsg);
 
     }
 
@@ -78,5 +71,13 @@ public class MessageService {
         messageDAO.updateMessage(messageId, newMessage);
         return messageDAO.getMessageById(messageId);
         
+    }
+
+    /*
+     * 
+     */
+    public List<Message> getMessagesByAccountId(int accountId) {
+        //Validate the account id?
+        return messageDAO.getMessagesByAccountId(accountId);
     }
 }
